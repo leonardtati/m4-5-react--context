@@ -103,7 +103,7 @@ The following components are blurry in terms of their abstraction. Let's address
 
 ```js
 const Banner = ({ type, message, user }) => {
-  const bg = type === 'success' ? 'green' : 'red';
+  const bg = type === "success" ? "green" : "red";
 
   // Only logged in users are allowed to see the banner
   if (!user) {
@@ -121,6 +121,31 @@ const Banner = ({ type, message, user }) => {
 ---
 
 ```js
+const TextAera =() =>{
+  return (
+    <>
+      <label>
+        Message:
+        <textarea
+          value={message}
+          onChange={ev => {
+            setMessage(ev.target.value);
+            if (ev.target.value.length < 100) {
+              setMessageError(true);
+            } else {
+              setMessageError(false);
+            }
+          }}
+        />
+      </label>
+      {messageError && (
+        <p className="error">Please enter at least 100 characters.</p>
+      )}
+    </>
+}
+
+
+
 const ContactPage = () => {
   const [message, setMessage] = React.useState('');
   const [messageError, setMessageError] = React.useState(false);
@@ -135,25 +160,7 @@ const ContactPage = () => {
         form:
       </p>
 
-      <label>
-        Message:
-        <textarea
-          value={message}
-          onChange={ev => {
-            setMessage(ev.target.value);
-
-            if (ev.target.value.length < 100) {
-              setMessageError(true);
-            } else {
-              setMessageError(false);
-            }
-          }}
-        />
-      </label>
-      {messageError && (
-        <p className="error">Please enter at least 100 characters.</p>
-      )}
-    </div>
+      <TextArea/>
   );
 };
 ```
